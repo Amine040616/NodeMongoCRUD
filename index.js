@@ -8,9 +8,6 @@ const birthdatevalidation = require("./verificage").birthdatevalidation;
 const mdpvalidation = require('./verifPWD').mdpvalidation;
 const nickname = require('./verifnm').nickname;
 
-//Connecting to MongoDB
-//mongoose.connect('mongodb://127.0.0.1:27017');
-
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({
     extended: false
@@ -19,14 +16,9 @@ app.use(bodyParser.urlencoded({
 // parse application/json
 app.use(bodyParser.json());
 
-
 app.get('/', (req, res) => {
     res.send('Hello World!')
 });
-
-
-
- 
 
 app.post('/', (req, res) => {
 
@@ -35,7 +27,6 @@ app.post('/', (req, res) => {
     var age = birthdatevalidation(req.body.birthdate, res);
     var pseudo = nickname(req.body.pseudonyme, res);
     
-
     if (mdp != "Mot de passe invalide" && identifiant == "Votre Identifiant est valide" && age == "Bienvenue dans notre site web" && pseudo == "Votre pseudonyme est valide") {
 
         const MongoClient = require('mongodb').MongoClient;
@@ -76,24 +67,17 @@ app.post('/', (req, res) => {
             console.log("Connected successfully to server," + " database name : " + dbName);
 
             const db = client.db(dbName);
-        
-        
-        
+
             insertDocuments(db, function() {
                 findDocuments(db, function() {
                     client.close();
                 });
             });
-
     });
 
     //res.send(/*'Hello Darna!'*/ findDocuments(db, callback));
 } else {res.send('Hello Mouch Darna!');}
 });
-
-
-
-
 
 app.post('/update', (req, res) => {
 
@@ -114,7 +98,6 @@ app.post('/update', (req, res) => {
                 console.log("Found this record");
                 console.log(docs)
                 callback(docs);
-
             });
           }
 
@@ -130,7 +113,6 @@ app.post('/update', (req, res) => {
                     callback(err, docs);
                     //return res.send(docs);
                   });
-                
             });
         }
 
@@ -141,23 +123,15 @@ app.post('/update', (req, res) => {
 
             const db = client.db(dbName);
         
-        
-        
         findDocuments(db, function() {
             updateDocuments(db, function(err, docs) {
                 if(err) throw new Error(err);
                     client.close();
                     return res.send(docs);
             });
-          });
-
+        });
     });
-
-    //res.send(/*'Hello Darna!'*/ findDocuments(db, callback));
-
 });
-
-
 
 app.post('/delete', (req, res) => {
 
@@ -213,23 +187,8 @@ app.post('/delete', (req, res) => {
 
 });
 
-//res.send(/*'Hello Darna!'*/ findDocuments(db, callback));
-
 });
 
-
-// app.post('/', (req, res) => {
-//     mailvalidation(req.body.identifiant, res);
-//     nickname(req.body.pseudonyme, res);
-//     mdpvalidation(req.body.password, res);
-//     birthdatevalidation(req, res);
-
-
-
-
-// });
-
 app.get('/app', (req, res) => res.send('Hello mouch World!'));
-
 
 app.listen(1500, () => console.log('Example app listening on port 1500!'));
