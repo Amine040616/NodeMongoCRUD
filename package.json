@@ -1,0 +1,25 @@
+{
+  "name": "03nodemongo",
+  "version": "1.0.0",
+  "description": "Connection with a Mongo database, create collection and document, add and update informations",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Node",
+    "JS",
+    "Mongo",
+    "MongoDB",
+    "database",
+    "collection",
+    "document"
+  ],
+  "author": "Gustaveddine",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "mongoose": "^5.2.14"
+  }
+}
